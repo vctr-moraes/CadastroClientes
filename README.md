@@ -8,3 +8,5 @@ Aplicação WEB para fins de prova de conceito na utilização de serviços de n
 ### Serviços AWS
 * App Runner
 * DynamoDB
+* S3
+* SES
