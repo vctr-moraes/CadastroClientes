@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
+WORKDIR /src
 EXPOSE 8080
 EXPOSE 443
 
@@ -18,6 +18,6 @@ FROM build AS publish
 RUN dotnet publish "CadastroClientes.App.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
-WORKDIR /app
+WORKDIR /src
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "CadastroClientes.App.dll"]
