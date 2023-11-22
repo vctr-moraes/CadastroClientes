@@ -20,4 +20,5 @@ RUN dotnet publish "CadastroClientes.App.csproj" -c Release -o /app/publish /p:U
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN dotnet "CadastroClientes.App.dll"
 ENTRYPOINT ["dotnet", "CadastroClientes.App"]
