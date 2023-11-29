@@ -15,9 +15,9 @@ WORKDIR "CadastroClientes.App"
 RUN dotnet build "CadastroClientes.App.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CadastroClientes.App.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "CadastroClientes.App.csproj" -c Release -o /app/publish /p:UseAppHost=true
 
 FROM base AS final
-WORKDIR "CadastroClientes.App"
+WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "CadastroClientes.App.dll"]
