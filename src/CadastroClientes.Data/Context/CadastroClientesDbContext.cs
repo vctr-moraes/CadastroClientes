@@ -7,9 +7,7 @@ namespace CadastroClientes.Data.Context;
 [ExcludeFromCodeCoverage]
 public class CadastroClientesDbContext : DbContext
 {
-    public CadastroClientesDbContext(DbContextOptions<CadastroClientesDbContext> options)
-    {
-    }
+    public CadastroClientesDbContext(DbContextOptions<CadastroClientesDbContext> options) : base(options) { }
 
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Contato> Contatos { get; set; }
