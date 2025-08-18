@@ -1,12 +1,17 @@
-# Cadastro de clientes
-Aplicação WEB para fins de prova de conceito na utilização de serviços de nuvem da AWS. Consiste em um cadastro personalizado para clientes de uma empresa.
+# Cadastro de Clientes
+
+### Apresentação
+Projeto experimental de aplicação web, hospedada em IBM Cloud.
+Consiste em uma aplicação para gerenciamento de clientes com finalidades comerciais.
+
+### Funcionalidades
+* Cadastro de dados comerciais de clientes
+* Upload de documentos
 
 ### Tecnologias utilizadas
-* ASP.NET 6
+* C#
+* .NET 8
 * Razor
-
-### Serviços AWS
-* App Runner
-* DynamoDB
-* S3
-* SES
+* Entity Framework Core
+* SQL Server
+* Serviços IBM Cloud ainda a serem definidos
