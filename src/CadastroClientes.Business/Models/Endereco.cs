@@ -6,6 +6,8 @@ namespace CadastroClientes.Business.Models;
 [ExcludeFromCodeCoverage]
 public class Endereco : Entity
 {
+    protected Endereco() { }
+
     public Endereco(
         string logradouro,
         string numero,
