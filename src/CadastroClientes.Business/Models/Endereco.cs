@@ -6,7 +6,9 @@ namespace CadastroClientes.Business.Models;
 [ExcludeFromCodeCoverage]
 public class Endereco : Entity
 {
-    protected Endereco() { }
+    protected Endereco()
+    {
+    }
 
     public Endereco(
         string logradouro,
@@ -38,4 +40,22 @@ public class Endereco : Entity
     public string Cep { get; private set; }
     public Cliente Cliente { get; private set; }
     public Guid ClienteId { get; private set; }
+
+    public void AtualizarEndereco(
+        string logradouro,
+        string numero,
+        string bairro,
+        string cidade,
+        string estado,
+        string pais,
+        string cep)
+    {
+        Logradouro = logradouro;
+        Numero = numero;
+        Bairro = bairro;
+        Cidade = cidade;
+        Estado = estado;
+        Pais = pais;
+        Cep = cep;
+    }
 }
