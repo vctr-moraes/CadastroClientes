@@ -18,14 +18,12 @@ public class Cliente : Entity
     public Cliente(
         string nomeFantasia,
         string razaoSocial,
-        string cnpj,
-        Endereco endereco)
+        string cnpj)
     {
         NomeFantasia = nomeFantasia;
         RazaoSocial = razaoSocial;
         Cnpj = cnpj;
         DataCadastro = DateTime.Now.Date;
-        Endereco = endereco;
     }
 
     public string NomeFantasia { get; private set; }
@@ -37,6 +35,16 @@ public class Cliente : Entity
     public IReadOnlyCollection<Contato> Contatos => _contatos;
 
     public IReadOnlyCollection<Documento> Documentos => _documentos;
+
+    public void AtualizarCliente(
+        string nomeFantasia,
+        string razaoSocial,
+        string cnpj)
+    {
+        NomeFantasia = nomeFantasia;
+        RazaoSocial = razaoSocial;
+        Cnpj = cnpj;
+    }
 
     public void AdicionarContato(Contato contato)
     {
@@ -56,5 +64,10 @@ public class Cliente : Entity
     public void RemoverDocumento(Documento documento)
     {
         _documentos.Remove(documento);
+    }
+
+    public void AdicionarEndereco(Endereco endereco)
+    {
+        Endereco = endereco;
     }
 }
