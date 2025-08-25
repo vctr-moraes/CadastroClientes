@@ -16,12 +16,19 @@ public class ClienteRepository : IClienteRepository
 
     public async Task<Cliente> ObterPorId(Guid id)
     {
-        return await _context.Clientes.FindAsync(id);
+        return await _context.Clientes
+            .Include(c => c.Endereco)
+            .Include(c => c.Contatos)
+            .Include(c => c.Documentos)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public async Task<IList<Cliente>> ObterTodos()
     {
-        return await _context.Clientes.AsNoTracking().ToListAsync();
+        return await _context.Clientes
+            .Include(c => c.Endereco)
+            .AsNoTracking().ToListAsync();
     }
 
     public void Adicionar(Cliente cliente)

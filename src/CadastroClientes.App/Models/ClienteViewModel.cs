@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using CadastroClientes.Business.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CadastroClientes.App.Models;
@@ -7,6 +8,28 @@ namespace CadastroClientes.App.Models;
 [ExcludeFromCodeCoverage]
 public class ClienteViewModel
 {
+    public ClienteViewModel()
+    {
+    }
+
+    public ClienteViewModel(Cliente cliente)
+    {
+        Id = cliente.Id;
+        NomeFantasia = cliente.NomeFantasia;
+        RazaoSocial = cliente.RazaoSocial;
+        Cnpj = cliente.Cnpj;
+        Endereco = new EnderecoViewModel
+        {
+            Logradouro = cliente.Endereco.Logradouro,
+            Numero = cliente.Endereco.Numero,
+            Bairro = cliente.Endereco.Bairro,
+            Cidade = cliente.Endereco.Cidade,
+            Estado = cliente.Endereco.Estado,
+            Pais = cliente.Endereco.Pais,
+            Cep = cliente.Endereco.Cep
+        };
+    }
+
     [Key] public Guid Id { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório.")]
@@ -27,15 +50,15 @@ public class ClienteViewModel
     [DataType(DataType.Text)]
     public string Cnpj { get; set; }
 
-    [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    [Display(Name = "Data de Cadastro")]
-    [DataType(DataType.Date)]
-    public DateTime DataCadastro { get; set; }
+    //[Required(ErrorMessage = "O campo {0} é obrigatório.")]
+    //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+    //[Display(Name = "Data de Cadastro")]
+    //[DataType(DataType.Date)]
+    //public DateTime DataCadastro { get; set; }
 
     [Display(Name = "Endereço")] public EnderecoViewModel Endereco { get; set; }
 
-    [Display(Name = "Contatos")] public List<ContatoViewModel> Contatos { get; set; }
+    //[Display(Name = "Contatos")] public List<ContatoViewModel> Contatos { get; set; }
 
-    [Display(Name = "Documentos")] public List<DocumentoViewModel> Documentos { get; set; }
+    //[Display(Name = "Documentos")] public List<DocumentoViewModel> Documentos { get; set; }
 }
