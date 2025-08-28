@@ -52,7 +52,9 @@ namespace CadastroClientes.App.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var clienteViewModel = new ClienteViewModel();
+
+            return View(clienteViewModel);
         }
 
         [HttpPost]
@@ -64,19 +66,32 @@ namespace CadastroClientes.App.Controllers
                 return View(clienteViewModel);
             }
 
-            var cliente = new Cliente(clienteViewModel.NomeFantasia, clienteViewModel.RazaoSocial,
+            var cliente = new Cliente(
+                clienteViewModel.NomeFantasia,
+                clienteViewModel.RazaoSocial,
                 clienteViewModel.Cnpj);
 
             var endereco = new Endereco(
                 clienteViewModel.Endereco.Logradouro,
                 clienteViewModel.Endereco.Numero,
                 clienteViewModel.Endereco.Bairro,
-                clienteViewModel.Endereco.Cep,
                 clienteViewModel.Endereco.Cidade,
                 clienteViewModel.Endereco.Estado,
                 clienteViewModel.Endereco.Pais,
+                clienteViewModel.Endereco.Cep,
                 cliente);
 
+            var contato = new Contato(
+                clienteViewModel.Contato.DescricaoContato,
+                clienteViewModel.Contato.NomeRepresentante,
+                clienteViewModel.Contato.EmailRepresentante,
+                clienteViewModel.Contato.TelefoneRepresentante,
+                clienteViewModel.Contato.EmailComercial,
+                clienteViewModel.Contato.TelefoneComercial,
+                clienteViewModel.Contato.Cargo,
+                cliente);
+
+            cliente.AdicionarContato(contato);
             cliente.AdicionarEndereco(endereco);
 
             try

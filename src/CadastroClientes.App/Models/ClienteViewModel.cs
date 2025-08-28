@@ -58,7 +58,9 @@ public class ClienteViewModel
 
     [Display(Name = "Endereço")] public EnderecoViewModel Endereco { get; set; }
 
-    //[Display(Name = "Contatos")] public List<ContatoViewModel> Contatos { get; set; }
+    [Display(Name = "Contatos")] public ContatoViewModel Contato { get; set; }
+
+    [Display(Name = "Contatos")] public List<ContatoViewModel> Contatos { get; set; } = new List<ContatoViewModel>();
 
     //[Display(Name = "Documentos")] public List<DocumentoViewModel> Documentos { get; set; }
 }
