@@ -12,7 +12,7 @@ public class ContatoViewModel
     [Required(ErrorMessage = "O campo {0} é obrigatório.")]
     [StringLength(300, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres.")]
     [Display(Name = "Descrição do Contato")]
-    [DataType(DataType.Text)]
+    [DataType(DataType.MultilineText)]
     public string DescricaoContato { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório.")]
@@ -20,6 +20,12 @@ public class ContatoViewModel
     [Display(Name = "Nome do Representante")]
     [DataType(DataType.Text)]
     public string NomeRepresentante { get; set; }
+
+    [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+    [StringLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres.")]
+    [Display(Name = "Cargo")]
+    [DataType(DataType.Text)]
+    public string Cargo { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório.")]
     [StringLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres.")]
@@ -44,12 +50,6 @@ public class ContatoViewModel
     [Display(Name = "Telefone Comercial")]
     [DataType(DataType.PhoneNumber)]
     public string TelefoneComercial { get; set; }
-
-    [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-    [StringLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres.")]
-    [Display(Name = "Cargo")]
-    [DataType(DataType.Text)]
-    public string Cargo { get; set; }
 
     [ForeignKey("Cliente")] public Guid ClienteId { get; set; }
 }

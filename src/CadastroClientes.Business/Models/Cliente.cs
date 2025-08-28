@@ -24,6 +24,7 @@ public class Cliente : Entity
         RazaoSocial = razaoSocial;
         Cnpj = cnpj;
         DataCadastro = DateTime.Now.Date;
+        _contatos = new List<Contato>();
     }
 
     public string NomeFantasia { get; private set; }
