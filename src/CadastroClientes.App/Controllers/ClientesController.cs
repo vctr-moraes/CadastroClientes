@@ -35,6 +35,7 @@ namespace CadastroClientes.App.Controllers
                 NomeFantasia = cliente.NomeFantasia,
                 RazaoSocial = cliente.RazaoSocial,
                 Cnpj = cliente.Cnpj,
+                Contatos = cliente.Contatos.Select(contato => new ContatoViewModel(contato)).ToList(),
                 Endereco = new EnderecoViewModel
                 {
                     Logradouro = cliente.Endereco.Logradouro,

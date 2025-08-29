@@ -1,12 +1,25 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using CadastroClientes.Business.Models;
 
 namespace CadastroClientes.App.Models;
 
 [ExcludeFromCodeCoverage]
 public class ContatoViewModel
 {
+    public ContatoViewModel(Contato contato)
+    {
+        Id = contato.Id;
+        DescricaoContato = contato.DescricaoContato;
+        NomeRepresentante = contato.NomeRepresentante;
+        Cargo = contato.Cargo;
+        EmailRepresentante = contato.EmailRepresentante;
+        TelefoneRepresentante = contato.TelefoneRepresentante;
+        EmailComercial = contato.EmailComercial;
+        TelefoneComercial = contato.TelefoneComercial;
+    }
+
     [Key] public Guid Id { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório.")]
