@@ -18,6 +18,7 @@ public class ClienteViewModel
         NomeFantasia = cliente.NomeFantasia;
         RazaoSocial = cliente.RazaoSocial;
         Cnpj = cliente.Cnpj;
+        DataCadastro = cliente.DataCadastro;
         Endereco = new EnderecoViewModel
         {
             Logradouro = cliente.Endereco.Logradouro,
@@ -50,11 +51,11 @@ public class ClienteViewModel
     [DataType(DataType.Text)]
     public string Cnpj { get; set; }
 
-    //[Required(ErrorMessage = "O campo {0} é obrigatório.")]
-    //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    //[Display(Name = "Data de Cadastro")]
-    //[DataType(DataType.Date)]
-    //public DateTime DataCadastro { get; set; }
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+    [Display(Name = "Data de Cadastro")]
+    [DataType(DataType.Date)]
+    [Editable(false)]
+    public DateTime DataCadastro { get; set; }
 
     [Display(Name = "Endereço")] public EnderecoViewModel Endereco { get; set; }
 
