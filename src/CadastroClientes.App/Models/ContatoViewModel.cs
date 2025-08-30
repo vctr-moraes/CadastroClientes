@@ -8,6 +8,10 @@ namespace CadastroClientes.App.Models;
 [ExcludeFromCodeCoverage]
 public class ContatoViewModel
 {
+    public ContatoViewModel()
+    {
+    }
+
     public ContatoViewModel(Contato contato)
     {
         Id = contato.Id;

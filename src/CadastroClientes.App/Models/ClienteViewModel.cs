@@ -19,6 +19,9 @@ public class ClienteViewModel
         RazaoSocial = cliente.RazaoSocial;
         Cnpj = cliente.Cnpj;
         DataCadastro = cliente.DataCadastro;
+        Contato = cliente.Contatos.FirstOrDefault() != null
+            ? new ContatoViewModel(cliente.Contatos.FirstOrDefault())
+            : null;
         Contatos = cliente.Contatos.Select(contato => new ContatoViewModel(contato)).ToList();
         Endereco = new EnderecoViewModel
         {
