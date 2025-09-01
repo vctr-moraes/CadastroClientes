@@ -24,6 +24,7 @@ public class Cliente : Entity
         RazaoSocial = razaoSocial;
         Cnpj = cnpj;
         DataCadastro = DateTime.Now.Date;
+        _contatos = new List<Contato>();
     }
 
     public string NomeFantasia { get; private set; }
@@ -49,6 +50,25 @@ public class Cliente : Entity
     public void AdicionarContato(Contato contato)
     {
         _contatos.Add(contato);
+    }
+
+    public void AtualizarContato(
+        Contato contato,
+        string descricaoContato,
+        string nomeRepresentante,
+        string emailRepresentante,
+        string telefoneRepresentante,
+        string emailComercial,
+        string telefoneComercial,
+        string cargo)
+    {
+        contato.GetType().GetProperty("DescricaoContato")?.SetValue(contato, descricaoContato);
+        contato.GetType().GetProperty("NomeRepresentante")?.SetValue(contato, nomeRepresentante);
+        contato.GetType().GetProperty("EmailRepresentante")?.SetValue(contato, emailRepresentante);
+        contato.GetType().GetProperty("TelefoneRepresentante")?.SetValue(contato, telefoneRepresentante);
+        contato.GetType().GetProperty("EmailComercial")?.SetValue(contato, emailComercial);
+        contato.GetType().GetProperty("TelefoneComercial")?.SetValue(contato, telefoneComercial);
+        contato.GetType().GetProperty("Cargo")?.SetValue(contato, cargo);
     }
 
     public void RemoverContato(Contato contato)
