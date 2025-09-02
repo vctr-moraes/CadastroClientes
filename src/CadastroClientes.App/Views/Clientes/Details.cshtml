@@ -1,142 +1,211 @@
 ﻿@model CadastroClientes.App.Models.ClienteViewModel
-
+@using CadastroClientes.App.Models
 @{
     ViewData["Title"] = "Detalhes";
 }
 
 <h1>Detalhes</h1>
 
-<div>
-    <hr/>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeFantasia)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NomeFantasia)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RazaoSocial)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RazaoSocial)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cnpj)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cnpj)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataCadastro)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataCadastro)
-        </dd>
-    </dl>
-    <hr/>
-    <h5>Endereço</h5>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Endereco.Logradouro)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Endereco.Logradouro)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Endereco.Numero)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Endereco.Numero)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Endereco.Bairro)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Endereco.Bairro)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Endereco.Cidade)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Endereco.Cidade)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Endereco.Estado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Endereco.Estado)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Endereco.Pais)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Endereco.Pais)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Endereco.Cep)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Endereco.Cep)
-        </dd>
-    </dl>
-    <hr/>
-    <h5>Contatos</h5>
-    @{
-        if (Model.Contatos.Any())
-        {
-            @foreach (var item in Model.Contatos)
+<div class="row">
+    <div class="col-6">
+        <hr/>
+        <h5>Dados do Cliente</h5>
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.NomeFantasia)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.NomeFantasia)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.RazaoSocial)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.RazaoSocial)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Cnpj)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Cnpj)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.DataCadastro)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.DataCadastro)
+            </dd>
+        </dl>
+        <hr/>
+        <h5>Endereço</h5>
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Endereco.Logradouro)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Endereco.Logradouro)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Endereco.Numero)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Endereco.Numero)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Endereco.Bairro)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Endereco.Bairro)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Endereco.Cidade)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Endereco.Cidade)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Endereco.Estado)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Endereco.Estado)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Endereco.Pais)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Endereco.Pais)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Endereco.Cep)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Endereco.Cep)
+            </dd>
+        </dl>
+        <hr/>
+        <h5>Contatos</h5>
+        @{
+            if (Model.Contatos.Any())
             {
-                <div class="card shadow-sm" style="width: 34rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            @Html.DisplayFor(model => item.NomeRepresentante)
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary text-black-50">
-                            @Html.DisplayFor(model => item.DescricaoContato)
-                        </h6>
-                        <hr/>
-                        <dl class="row">
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.DescricaoContato)
-                            </dt>
-                            <dd class="col-sm-6">
+                foreach (var item in Model.Contatos)
+                {
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                @Html.DisplayFor(model => item.NomeRepresentante)
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary text-black-50">
                                 @Html.DisplayFor(model => item.DescricaoContato)
-                            </dd>
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.EmailRepresentante)
-                            </dt>
-                            <dd class="col-sm-6">
-                                @Html.DisplayFor(model => item.EmailRepresentante)
-                            </dd>
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.TelefoneRepresentante)
-                            </dt>
-                            <dd class="col-sm-6">
-                                @Html.DisplayFor(model => item.TelefoneRepresentante)
-                            </dd>
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.EmailComercial)
-                            </dt>
-                            <dd class="col-sm-6">
-                                @Html.DisplayFor(model => item.EmailComercial)
-                            </dd>
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.TelefoneComercial)
-                            </dt>
-                            <dd class="col-sm-6">
-                                @Html.DisplayFor(model => item.TelefoneComercial)
-                            </dd>
-                        </dl>
+                            </h6>
+                            <hr/>
+                            <dl class="row">
+                                <dt class="col-sm-6">
+                                    @Html.DisplayNameFor(model => item.DescricaoContato)
+                                </dt>
+                                <dd class="col-sm-6">
+                                    @Html.DisplayFor(model => item.DescricaoContato)
+                                </dd>
+                                <dt class="col-sm-6">
+                                    @Html.DisplayNameFor(model => item.EmailRepresentante)
+                                </dt>
+                                <dd class="col-sm-6">
+                                    @Html.DisplayFor(model => item.EmailRepresentante)
+                                </dd>
+                                <dt class="col-sm-6">
+                                    @Html.DisplayNameFor(model => item.TelefoneRepresentante)
+                                </dt>
+                                <dd class="col-sm-6">
+                                    @Html.DisplayFor(model => item.TelefoneRepresentante)
+                                </dd>
+                                <dt class="col-sm-6">
+                                    @Html.DisplayNameFor(model => item.EmailComercial)
+                                </dt>
+                                <dd class="col-sm-6">
+                                    @Html.DisplayFor(model => item.EmailComercial)
+                                </dd>
+                                <dt class="col-sm-6">
+                                    @Html.DisplayNameFor(model => item.TelefoneComercial)
+                                </dt>
+                                <dd class="col-sm-6">
+                                    @Html.DisplayFor(model => item.TelefoneComercial)
+                                </dd>
+                            </dl>
+                        </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <h6 class="text-black-50">Não há contatos cadastrados</h6>
             }
         }
-        else
-        {
-            <h6 class="text-black-50">Não há contatos cadastrados</h6>
+    </div>
+    <div class="col-6">
+        <hr/>
+        <h5>Documentos</h5>
+        <form asp-action="AdicionarDocumento">
+            <div class="form-group">
+                <label asp-for="Documento.Descricao" class="control-label"></label>
+                <textarea asp-for="Documento.Descricao" class="form-control"></textarea>
+                <span asp-validation-for="Documento.Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Documento.TipoDocumento" class="control-label"></label>
+                <select asp-for="Documento.TipoDocumento" class="form-control" data-control="select2"
+                        data-hide-search="true" asp-items="Html.GetEnumSelectList<TipoDocumentoViewModel>()"
+                        style="cursor: pointer;">
+                    <option value="" selected disabled>Selecionar</option>
+                </select>
+                <span asp-validation-for="Documento.TipoDocumento" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Documento.ClienteId"/>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Importar documento" class="btn btn-primary"/>
+            </div>
+        </form>
+        <br/>
+        @{
+            if (Model.Documentos.Any())
+            {
+                foreach (var item in Model.Documentos)
+                {
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                @Html.DisplayFor(model => item.NomeArquivo)
+                            </h5>
+                            <dl class="row">
+                                <dt class="col-sm-6">
+                                    @Html.DisplayNameFor(model => item.Descricao)
+                                </dt>
+                                <dd class="col-sm-6">
+                                    @Html.DisplayFor(model => item.Descricao)
+                                </dd>
+                                <dt class="col-sm-6">
+                                    @Html.DisplayNameFor(model => item.TipoDocumento)
+                                </dt>
+                                <dd class="col-sm-6">
+                                    @Html.DisplayFor(model => item.TipoDocumento)
+                                </dd>
+                                <dt class="col-sm-6">
+                                    @Html.DisplayNameFor(model => item.DataHoraCriacao)
+                                </dt>
+                                <dd class="col-sm-6">
+                                    @Html.DisplayFor(model => item.DataHoraCriacao)
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <br/>
+                }
+            }
+            else
+            {
+                <h6 class="text-black-50">Não há documentos cadastrados</h6>
+            }
         }
-    }
+    </div>
 </div>
 <br/>
 <div>

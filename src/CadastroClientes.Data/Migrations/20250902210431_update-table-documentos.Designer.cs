@@ -4,6 +4,7 @@ using CadastroClientes.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadastroClientes.Data.Migrations
 {
     [DbContext(typeof(CadastroClientesDbContext))]
-    partial class CadastroClientesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250902210431_update-table-documentos")]
+    partial class updatetabledocumentos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

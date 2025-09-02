@@ -18,6 +18,16 @@ public class DocumentoMapping : IEntityTypeConfiguration<Documento>
             .HasColumnType("varchar(500)");
 
         builder
+            .Property(d => d.NomeArquivo)
+            .IsRequired()
+            .HasColumnType("varchar(200)");
+
+        builder
+            .Property(d => d.ChaveAcessoArmazenamento)
+            .IsRequired()
+            .HasColumnType("varchar(200)");
+
+        builder
             .Property(d => d.DataHoraCriacao)
             .IsRequired();
 
