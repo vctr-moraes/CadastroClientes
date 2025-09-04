@@ -202,6 +202,11 @@ namespace CadastroClientes.App.Controllers
         [HttpPost]
         public async Task<ActionResult> AdicionarDocumento(ClienteViewModel clienteViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Details), new { id = clienteViewModel.Documento.ClienteId });
+            }
+            
             var cliente = await _clienteRepository.ObterPorId(clienteViewModel.Documento.ClienteId) ?? null;
 
             if (cliente == null) return NotFound();

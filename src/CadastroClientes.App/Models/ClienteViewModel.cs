@@ -10,6 +10,7 @@ public class ClienteViewModel
 {
     public ClienteViewModel()
     {
+        
     }
 
     public ClienteViewModel(Cliente cliente)
@@ -68,7 +69,8 @@ public class ClienteViewModel
 
     [Display(Name = "Contatos")] public List<ContatoViewModel> Contatos { get; set; } = new List<ContatoViewModel>();
 
-    [Display(Name = "Documentos")] public DocumentoViewModel Documento { get; set; }
+    [Display(Name = "Documentos")]
+    public DocumentoViewModel? Documento { get; set; }
 
-    public List<DocumentoViewModel> Documentos { get; set; }
+    public List<DocumentoViewModel>? Documentos { get; set; }
 }
