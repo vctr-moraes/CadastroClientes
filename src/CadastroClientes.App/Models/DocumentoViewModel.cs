@@ -21,7 +21,7 @@ public class DocumentoViewModel
     public string ChaveAcessoArmazenamento { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
     [Display(Name = "Data e Hora de Criação")]
     [DataType(DataType.DateTime)]
     public DateTime DataHoraCriacao { get; set; }
