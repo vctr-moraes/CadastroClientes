@@ -8,10 +8,12 @@ namespace CadastroClientes.App.Controllers
     public class ClientesController : Controller
     {
         private readonly IClienteRepository _clienteRepository;
+        private readonly IDocumentoRepository _documentoRepository;
 
-        public ClientesController(IClienteRepository clienteRepository)
+        public ClientesController(IClienteRepository clienteRepository, IDocumentoRepository documentoRepository)
         {
             _clienteRepository = clienteRepository;
+            _documentoRepository = documentoRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -34,6 +36,15 @@ namespace CadastroClientes.App.Controllers
                 Cnpj = cliente.Cnpj,
                 DataCadastro = cliente.DataCadastro,
                 Contatos = cliente.Contatos.Select(contato => new ContatoViewModel(contato)).ToList(),
+                Documento = new DocumentoViewModel { ClienteId = cliente.Id },
+                Documentos = cliente.Documentos.Select(doc => new DocumentoViewModel
+                {
+                    Id = doc.Id,
+                    Descricao = doc.Descricao,
+                    NomeArquivo = doc.NomeArquivo,
+                    DataHoraCriacao = doc.DataHoraCriacao,
+                    TipoDocumento = (TipoDocumentoViewModel)doc.TipoDocumento
+                }).ToList(),
                 Endereco = new EnderecoViewModel
                 {
                     Logradouro = cliente.Endereco.Logradouro,
@@ -186,6 +197,36 @@ namespace CadastroClientes.App.Controllers
             {
                 throw new Exception("Ocorreu um erro ao excluir o cliente. Tente novamente.");
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AdicionarDocumento(ClienteViewModel clienteViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Details), new { id = clienteViewModel.Documento.ClienteId });
+            }
+            
+            var cliente = await _clienteRepository.ObterPorId(clienteViewModel.Documento.ClienteId) ?? null;
+
+            if (cliente == null) return NotFound();
+
+            var documento = new Documento(
+                clienteViewModel.Documento.Descricao,
+                $"{Guid.NewGuid()}-nome-do-arquivo.pdf",
+                (TipoDocumento)clienteViewModel.Documento.TipoDocumento,
+                cliente);
+
+            try
+            {
+                _documentoRepository.Adicionar(documento);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex?.InnerException?.Message);
+            }
+
+            return RedirectToAction(nameof(Details), new { id = clienteViewModel.Documento.ClienteId });
         }
     }
 }

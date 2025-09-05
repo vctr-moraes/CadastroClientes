@@ -10,6 +10,7 @@ public class ClienteViewModel
 {
     public ClienteViewModel()
     {
+        
     }
 
     public ClienteViewModel(Cliente cliente)
@@ -23,6 +24,7 @@ public class ClienteViewModel
             ? new ContatoViewModel(cliente.Contatos.FirstOrDefault())
             : null;
         Contatos = cliente.Contatos.Select(contato => new ContatoViewModel(contato)).ToList();
+        Documento = new DocumentoViewModel();
         Endereco = new EnderecoViewModel
         {
             Logradouro = cliente.Endereco.Logradouro,
@@ -67,5 +69,8 @@ public class ClienteViewModel
 
     [Display(Name = "Contatos")] public List<ContatoViewModel> Contatos { get; set; } = new List<ContatoViewModel>();
 
-    //[Display(Name = "Documentos")] public List<DocumentoViewModel> Documentos { get; set; }
+    [Display(Name = "Documentos")]
+    public DocumentoViewModel? Documento { get; set; }
+
+    public List<DocumentoViewModel>? Documentos { get; set; }
 }

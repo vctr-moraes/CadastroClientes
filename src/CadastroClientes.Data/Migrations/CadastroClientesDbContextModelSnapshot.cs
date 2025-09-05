@@ -98,6 +98,10 @@ namespace CadastroClientes.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ChaveAcessoArmazenamento")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
                     b.Property<Guid>("ClienteId")
                         .HasColumnType("uniqueidentifier");
 
@@ -107,6 +111,10 @@ namespace CadastroClientes.Data.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("varchar(500)");
+
+                    b.Property<string>("NomeArquivo")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<int>("TipoDocumento")
                         .HasColumnType("int");
