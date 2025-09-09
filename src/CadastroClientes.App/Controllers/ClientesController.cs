@@ -193,28 +193,28 @@ namespace CadastroClientes.App.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Ocorreu um erro ao excluir o cliente. Tente novamente.");
+                throw new Exception(ex?.InnerException?.Message);
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> AdicionarDocumento(ClienteViewModel clienteViewModel)
+        public async Task<IActionResult> AdicionarDocumento(DocumentoViewModel documentoViewModel, Guid clienteId)
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Details), new { id = clienteViewModel.Documento.ClienteId });
+                return RedirectToAction(nameof(Details), new { id = clienteId });
             }
-            
-            var cliente = await _clienteRepository.ObterPorId(clienteViewModel.Documento.ClienteId) ?? null;
+
+            var cliente = await _clienteRepository.ObterPorId(clienteId) ?? null;
 
             if (cliente == null) return NotFound();
 
             var documento = new Documento(
-                clienteViewModel.Documento.Descricao,
+                documentoViewModel.Descricao,
                 $"{Guid.NewGuid()}-nome-do-arquivo.pdf",
-                (TipoDocumento)clienteViewModel.Documento.TipoDocumento,
+                (TipoDocumento)documentoViewModel.TipoDocumento,
                 cliente);
 
             try
@@ -226,7 +226,26 @@ namespace CadastroClientes.App.Controllers
                 throw new Exception(ex?.InnerException?.Message);
             }
 
-            return RedirectToAction(nameof(Details), new { id = clienteViewModel.Documento.ClienteId });
+            return RedirectToAction(nameof(Details), new { id = clienteId });
+        }
+
+        [HttpPost, ActionName("DeletarDocumento")]
+        public async Task<IActionResult> DeletarDocumento(Guid id, Guid clienteId)
+        {
+            var documento = await _documentoRepository.ObterPorId(id) ?? null;
+
+            if (documento == null) return NotFound();
+
+            try
+            {
+                _documentoRepository.Remover(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex?.InnerException?.Message);
+            }
+
+            return RedirectToAction(nameof(Details), new { id = clienteId });
         }
     }
 }
