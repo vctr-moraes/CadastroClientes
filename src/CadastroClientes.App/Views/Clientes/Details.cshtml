@@ -1,5 +1,6 @@
 ﻿@model CadastroClientes.App.Models.ClienteViewModel
 @using CadastroClientes.App.Models
+@{ var documento = new DocumentoViewModel(); }
 @{
     ViewData["Title"] = "Detalhes";
 }
@@ -145,20 +146,21 @@
         <h5>Documentos</h5>
         <form asp-action="AdicionarDocumento">
             <div class="form-group">
-                <label asp-for="Documento.Descricao" class="control-label"></label>
-                <textarea asp-for="Documento.Descricao" class="form-control"></textarea>
-                <span asp-validation-for="Documento.Descricao" class="text-danger"></span>
+                <label asp-for="@documento.Descricao" class="control-label"></label>
+                <textarea name="descricao" asp-for="@documento.Descricao" class="form-control"></textarea>
+                <span asp-validation-for="@documento.Descricao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Documento.TipoDocumento" class="control-label"></label>
-                <select asp-for="Documento.TipoDocumento" class="form-control" data-control="select2"
+                <label asp-for="@documento.TipoDocumento" class="control-label"></label>
+                <select name="tipoDocumento" asp-for="@documento.TipoDocumento" class="form-control"
+                        data-control="select2"
                         data-hide-search="true" asp-items="Html.GetEnumSelectList<TipoDocumentoViewModel>()"
                         style="cursor: pointer;">
                     <option value="" selected disabled>Selecionar</option>
                 </select>
-                <span asp-validation-for="Documento.TipoDocumento" class="text-danger"></span>
+                <span asp-validation-for="@documento.TipoDocumento" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="Documento.ClienteId"/>
+            <input type="hidden" name="clienteId" asp-for="@Model.Id"/>
             <br/>
             <div class="form-group">
                 <input type="submit" value="Importar documento" class="btn btn-primary"/>
@@ -194,6 +196,15 @@
                                 <dd class="col-sm-6">
                                     @Html.DisplayFor(model => item.DataHoraCriacao)
                                 </dd>
+                                <div class="text-end">
+                                    <form asp-action="DeletarDocumento">
+                                        <input type="hidden" name="id" asp-for="@item.Id"/>
+                                        <input type="hidden" name="clienteId" asp-for="Documento.ClienteId"/>
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </dl>
                         </div>
                     </div>

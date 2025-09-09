@@ -16,19 +16,15 @@ public class DocumentoViewModel
     [DataType(DataType.Text)]
     public string Descricao { get; set; }
 
-    [Display(Name = "Nome do Arquivo")] public string NomeArquivo { get; set; }
+    [Display(Name = "Nome do Arquivo")] public string? NomeArquivo { get; set; }
 
-    public string ChaveAcessoArmazenamento { get; set; }
+    public string? ChaveAcessoArmazenamento { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório.")]
     [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
     [Display(Name = "Data e Hora de Criação")]
     [DataType(DataType.DateTime)]
     public DateTime DataHoraCriacao { get; set; }
-
-    [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-    [Display(Name = "Tipo de Documento")]
-    public List<TipoDocumentoViewModel> TipoDocumentos { get; set; }
 
     [Display(Name = "Tipo de Documento")] public TipoDocumentoViewModel TipoDocumento { get; set; }
 
