@@ -6,9 +6,10 @@
 
 <h1>Deletar</h1>
 
-<h3>Tem certeza de que deseja excluir isto?</h3>
+<h3 class="text-danger">Tem certeza de que deseja excluir isto?</h3>
 <div>
     <hr/>
+    <h5>Dados do Cliente</h5>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NomeFantasia)
@@ -94,7 +95,7 @@
                             @Html.DisplayFor(model => item.NomeRepresentante)
                         </h5>
                         <h6 class="card-subtitle mb-2 text-body-secondary text-black-50">
-                            @Html.DisplayFor(model => item.DescricaoContato)
+                            @Html.DisplayFor(model => item.Cargo)
                         </h6>
                         <hr/>
                         <dl class="row">

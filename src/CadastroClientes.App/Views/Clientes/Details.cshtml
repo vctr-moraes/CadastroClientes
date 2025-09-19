@@ -144,7 +144,7 @@
     <div class="col-6">
         <hr/>
         <h5>Documentos</h5>
-        <form asp-action="AdicionarDocumento">
+        <form asp-action="AdicionarDocumento" enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="@documento.Descricao" class="control-label"></label>
                 <textarea name="descricao" asp-for="@documento.Descricao" class="form-control"></textarea>
@@ -159,6 +159,11 @@
                     <option value="" selected disabled>Selecionar</option>
                 </select>
                 <span asp-validation-for="@documento.TipoDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@documento.Arquivo" for="formFile" class="control-label"></label>
+                <input asp-for="@documento.Arquivo" name="Arquivo" type="file" class="form-control" id="formFile">
+                <span asp-validation-for="@documento.Arquivo" class="text-danger"></span>
             </div>
             <input type="hidden" name="clienteId" asp-for="@Model.Id"/>
             <br/>
