@@ -26,6 +26,11 @@ public class DocumentoViewModel
     [DataType(DataType.DateTime)]
     public DateTime DataHoraCriacao { get; set; }
 
+    [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+    [Display(Name = "Arquivo")]
+    [DataType(DataType.Upload)]
+    public IFormFile Arquivo { get; set; }
+
     [Display(Name = "Tipo de Documento")] public TipoDocumentoViewModel TipoDocumento { get; set; }
 
     [ForeignKey("Cliente")] public Guid ClienteId { get; set; }

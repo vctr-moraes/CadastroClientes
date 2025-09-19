@@ -213,7 +213,7 @@ namespace CadastroClientes.App.Controllers
 
             var documento = new Documento(
                 documentoViewModel.Descricao,
-                $"{Guid.NewGuid()}-nome-do-arquivo.pdf",
+                documentoViewModel.Arquivo.FileName,
                 (TipoDocumento)documentoViewModel.TipoDocumento,
                 cliente);
 
