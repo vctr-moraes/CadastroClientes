@@ -7,9 +7,9 @@
 <h1>Clientes</h1>
 
 <p>
-    <a asp-action="Create">Cadastrar Novo</a>
+    <a class="btn btn-primary" asp-action="Create"><i class="fa-regular fa-square-plus"></i> Cadastrar Novo</a>
 </p>
-<table class="table">
+<table class="table table-striped">
     <thead>
     <tr>
         <th>
@@ -40,9 +40,12 @@
                 @Html.DisplayFor(modelItem => item.Cnpj)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                <a class="btn btn-outline-secondary btn-sm" asp-action="Edit" asp-route-id="@item.Id"><i
+                        class="fa-regular fa-pen-to-square"></i> Editar</a>
+                <a class="btn btn-outline-secondary btn-sm" asp-action="Details" asp-route-id="@item.Id"><i
+                        class="fa-regular fa-eye"></i> Detalhes</a>
+                <a class="btn btn-outline-secondary btn-sm" asp-action="Delete" asp-route-id="@item.Id"><i
+                        class="fa-regular fa-trash-can"></i> Deletar</a>
             </td>
         </tr>
     }
