@@ -7,6 +7,25 @@
 
 <h1>Detalhes</h1>
 
+@if (ViewData.ModelState.ErrorCount > 0)
+{
+    <div style="padding-top: 15px;"></div>
+
+    <div class="alert alert-danger alert-dismissible" role="alert" style="padding-bottom: 0px">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+}
+
+@if (TempData["Sucesso"] != null)
+{
+    <div id="msg_box" class="alert alert-success alert-dismissible" role="alert">
+        <i class="fa-regular fa-circle-check"></i>
+        <strong id="msgRetorno">@Html.Raw(TempData["Sucesso"].ToString())</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <div class="row">
     <div class="col-6">
         <hr/>
@@ -145,10 +164,11 @@
         <hr/>
         <h5>Documentos</h5>
         <form asp-action="AdicionarDocumento" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@documento.Descricao" class="control-label"></label>
                 <textarea name="descricao" asp-for="@documento.Descricao" class="form-control"></textarea>
-                <span asp-validation-for="@documento.Descricao" class="text-danger"></span>
+                <span asp-validation-for="@documento.Descricao" name="descricao" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@documento.TipoDocumento" class="control-label"></label>
@@ -158,12 +178,12 @@
                         style="cursor: pointer;">
                     <option value="" selected disabled>Selecionar</option>
                 </select>
-                <span asp-validation-for="@documento.TipoDocumento" class="text-danger"></span>
+                <span asp-validation-for="@documento.TipoDocumento" name="tipoDocumento" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@documento.Arquivo" for="formFile" class="control-label"></label>
                 <input asp-for="@documento.Arquivo" name="Arquivo" type="file" class="form-control" id="formFile">
-                <span asp-validation-for="@documento.Arquivo" class="text-danger"></span>
+                <span asp-validation-for="@documento.Arquivo" name="Arquivo" class="text-danger"></span>
             </div>
             <input type="hidden" name="clienteId" asp-for="@Model.Id"/>
             <br/>
@@ -230,3 +250,13 @@
     <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id"><i class="fa-regular fa-pen-to-square"></i>
         Editar</a>
 </div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script>
+        $(".alert-success").fadeTo(8000, 500).slideUp(500, function () {
+            $(".alert-success").alert('close');
+        });
+    </script>
+}

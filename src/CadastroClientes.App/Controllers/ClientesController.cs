@@ -105,11 +105,14 @@ namespace CadastroClientes.App.Controllers
             {
                 _clienteRepository.Adicionar(cliente);
 
+                TempData["Sucesso"] = "Cliente cadastrado com sucesso.";
+
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Ocorreu um erro ao cadastrar o cliente. Tente novamente.");
+                ModelState.AddModelError(string.Empty, ex?.InnerException?.Message);
+                throw new Exception(ex?.InnerException?.Message);
             }
         }
 
@@ -162,11 +165,14 @@ namespace CadastroClientes.App.Controllers
             {
                 _clienteRepository.Atualizar(cliente);
 
+                TempData["Sucesso"] = "Cliente atualizado com sucesso.";
+
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Ocorreu um erro ao atualizar o cliente. Tente novamente.");
+                ModelState.AddModelError(string.Empty, ex?.InnerException?.Message);
+                throw new Exception(ex?.InnerException?.Message);
             }
         }
 
@@ -191,10 +197,13 @@ namespace CadastroClientes.App.Controllers
             {
                 _clienteRepository.Remover(id);
 
+                TempData["Sucesso"] = "Cliente deletado com sucesso.";
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
+                ModelState.AddModelError(string.Empty, ex?.InnerException?.Message);
                 throw new Exception(ex?.InnerException?.Message);
             }
         }
@@ -220,9 +229,12 @@ namespace CadastroClientes.App.Controllers
             try
             {
                 _documentoRepository.Adicionar(documento);
+
+                TempData["Sucesso"] = "Documento importado com sucesso.";
             }
             catch (Exception ex)
             {
+                ModelState.AddModelError(string.Empty, ex?.InnerException?.Message);
                 throw new Exception(ex?.InnerException?.Message);
             }
 
@@ -239,9 +251,12 @@ namespace CadastroClientes.App.Controllers
             try
             {
                 _documentoRepository.Remover(id);
+
+                TempData["Sucesso"] = "Documento deletado com sucesso.";
             }
             catch (Exception ex)
             {
+                ModelState.AddModelError(string.Empty, ex?.InnerException?.Message);
                 throw new Exception(ex?.InnerException?.Message);
             }
 
