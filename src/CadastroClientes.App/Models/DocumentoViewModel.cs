@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using CadastroClientes.Business.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CadastroClientes.App.Models;
@@ -8,6 +9,19 @@ namespace CadastroClientes.App.Models;
 [ExcludeFromCodeCoverage]
 public class DocumentoViewModel
 {
+    public DocumentoViewModel()
+    {
+    }
+
+    public DocumentoViewModel(Documento documento)
+    {
+        Id = documento.Id;
+        Descricao = documento.Descricao;
+        NomeArquivo = documento.NomeArquivo;
+        DataHoraCriacao = documento.DataHoraCriacao;
+        TipoDocumento = (TipoDocumentoViewModel)documento.TipoDocumento;
+    }
+
     [Key] public Guid Id { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório")]

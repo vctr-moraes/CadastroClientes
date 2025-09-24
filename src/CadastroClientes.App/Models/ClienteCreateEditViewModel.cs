@@ -1,19 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using CadastroClientes.Business.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CadastroClientes.App.Models;
 
 [ExcludeFromCodeCoverage]
-public class ClienteViewModel
+public class ClienteCreateEditViewModel
 {
-    public ClienteViewModel()
+    public ClienteCreateEditViewModel()
     {
-        
     }
 
-    public ClienteViewModel(Cliente cliente)
+    public ClienteCreateEditViewModel(Cliente cliente)
     {
         Id = cliente.Id;
         NomeFantasia = cliente.NomeFantasia;
@@ -25,16 +23,7 @@ public class ClienteViewModel
             : null;
         Contatos = cliente.Contatos.Select(contato => new ContatoViewModel(contato)).ToList();
         Documento = new DocumentoViewModel();
-        Endereco = new EnderecoViewModel
-        {
-            Logradouro = cliente.Endereco.Logradouro,
-            Numero = cliente.Endereco.Numero,
-            Bairro = cliente.Endereco.Bairro,
-            Cidade = cliente.Endereco.Cidade,
-            Estado = cliente.Endereco.Estado,
-            Pais = cliente.Endereco.Pais,
-            Cep = cliente.Endereco.Cep
-        };
+        Endereco = new EnderecoViewModel(cliente.Endereco);
     }
 
     [Key] public Guid Id { get; set; }
@@ -67,10 +56,9 @@ public class ClienteViewModel
 
     [Display(Name = "Contatos")] public ContatoViewModel Contato { get; set; }
 
-    [Display(Name = "Contatos")] public List<ContatoViewModel> Contatos { get; set; } = new List<ContatoViewModel>();
+    [Display(Name = "Contatos")] public List<ContatoViewModel>? Contatos { get; set; }
 
-    [Display(Name = "Documentos")]
-    public DocumentoViewModel? Documento { get; set; }
+    [Display(Name = "Documentos")] public DocumentoViewModel? Documento { get; set; }
 
     public List<DocumentoViewModel>? Documentos { get; set; }
 }
