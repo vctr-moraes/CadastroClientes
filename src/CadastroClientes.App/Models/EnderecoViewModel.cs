@@ -1,12 +1,28 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using CadastroClientes.Business.Models;
 
 namespace CadastroClientes.App.Models;
 
 [ExcludeFromCodeCoverage]
 public class EnderecoViewModel
 {
+    public EnderecoViewModel()
+    {
+    }
+
+    public EnderecoViewModel(Endereco endereco)
+    {
+        Logradouro = endereco.Logradouro;
+        Numero = endereco.Numero;
+        Bairro = endereco.Bairro;
+        Cidade = endereco.Cidade;
+        Estado = endereco.Estado;
+        Pais = endereco.Pais;
+        Cep = endereco.Cep;
+    }
+
     [Key] public Guid Id { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório.")]

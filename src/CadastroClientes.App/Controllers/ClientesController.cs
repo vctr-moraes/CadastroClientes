@@ -19,7 +19,7 @@ namespace CadastroClientes.App.Controllers
         public async Task<IActionResult> Index()
         {
             var clientes = await _clienteRepository.ObterTodos();
-            return View(clientes.Select(cliente => new ClienteViewModel(cliente)).ToList());
+            return View(clientes.Select(cliente => new ClienteDetailsViewModel(cliente)).ToList());
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -28,7 +28,7 @@ namespace CadastroClientes.App.Controllers
 
             if (cliente == null) return NotFound();
 
-            var clienteViewModel = new ClienteViewModel
+            var clienteViewModel = new ClienteDetailsViewModel
             {
                 Id = cliente.Id,
                 NomeFantasia = cliente.NomeFantasia,
@@ -37,24 +37,8 @@ namespace CadastroClientes.App.Controllers
                 DataCadastro = cliente.DataCadastro,
                 Contatos = cliente.Contatos.Select(contato => new ContatoViewModel(contato)).ToList(),
                 Documento = new DocumentoViewModel { ClienteId = cliente.Id },
-                Documentos = cliente.Documentos.Select(doc => new DocumentoViewModel
-                {
-                    Id = doc.Id,
-                    Descricao = doc.Descricao,
-                    NomeArquivo = doc.NomeArquivo,
-                    DataHoraCriacao = doc.DataHoraCriacao,
-                    TipoDocumento = (TipoDocumentoViewModel)doc.TipoDocumento
-                }).ToList(),
-                Endereco = new EnderecoViewModel
-                {
-                    Logradouro = cliente.Endereco.Logradouro,
-                    Numero = cliente.Endereco.Numero,
-                    Bairro = cliente.Endereco.Bairro,
-                    Cidade = cliente.Endereco.Cidade,
-                    Estado = cliente.Endereco.Estado,
-                    Pais = cliente.Endereco.Pais,
-                    Cep = cliente.Endereco.Cep
-                }
+                Documentos = cliente.Documentos.Select(doc => new DocumentoViewModel(doc)).ToList(),
+                Endereco = new EnderecoViewModel(cliente.Endereco)
             };
 
             return View(clienteViewModel);
@@ -62,40 +46,40 @@ namespace CadastroClientes.App.Controllers
 
         public IActionResult Create()
         {
-            var clienteViewModel = new ClienteViewModel();
+            var clienteViewModel = new ClienteCreateEditViewModel();
 
             return View(clienteViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ClienteViewModel clienteViewModel)
+        public IActionResult Create(ClienteCreateEditViewModel clienteCreateEditViewModel)
         {
-            if (!ModelState.IsValid) return View(clienteViewModel);
+            if (!ModelState.IsValid) return View(clienteCreateEditViewModel);
 
             var cliente = new Cliente(
-                clienteViewModel.NomeFantasia,
-                clienteViewModel.RazaoSocial,
-                clienteViewModel.Cnpj);
+                clienteCreateEditViewModel.NomeFantasia,
+                clienteCreateEditViewModel.RazaoSocial,
+                clienteCreateEditViewModel.Cnpj);
 
             var endereco = new Endereco(
-                clienteViewModel.Endereco.Logradouro,
-                clienteViewModel.Endereco.Numero,
-                clienteViewModel.Endereco.Bairro,
-                clienteViewModel.Endereco.Cidade,
-                clienteViewModel.Endereco.Estado,
-                clienteViewModel.Endereco.Pais,
-                clienteViewModel.Endereco.Cep,
+                clienteCreateEditViewModel.Endereco.Logradouro,
+                clienteCreateEditViewModel.Endereco.Numero,
+                clienteCreateEditViewModel.Endereco.Bairro,
+                clienteCreateEditViewModel.Endereco.Cidade,
+                clienteCreateEditViewModel.Endereco.Estado,
+                clienteCreateEditViewModel.Endereco.Pais,
+                clienteCreateEditViewModel.Endereco.Cep,
                 cliente);
 
             var contato = new Contato(
-                clienteViewModel.Contato.DescricaoContato,
-                clienteViewModel.Contato.NomeRepresentante,
-                clienteViewModel.Contato.EmailRepresentante,
-                clienteViewModel.Contato.TelefoneRepresentante,
-                clienteViewModel.Contato.EmailComercial,
-                clienteViewModel.Contato.TelefoneComercial,
-                clienteViewModel.Contato.Cargo,
+                clienteCreateEditViewModel.Contato.DescricaoContato,
+                clienteCreateEditViewModel.Contato.NomeRepresentante,
+                clienteCreateEditViewModel.Contato.EmailRepresentante,
+                clienteCreateEditViewModel.Contato.TelefoneRepresentante,
+                clienteCreateEditViewModel.Contato.EmailComercial,
+                clienteCreateEditViewModel.Contato.TelefoneComercial,
+                clienteCreateEditViewModel.Contato.Cargo,
                 cliente);
 
             cliente.AdicionarContato(contato);
@@ -122,44 +106,44 @@ namespace CadastroClientes.App.Controllers
 
             if (cliente == null) return NotFound();
 
-            return View(new ClienteViewModel(cliente));
+            return View(new ClienteCreateEditViewModel(cliente));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, ClienteViewModel clienteViewModel)
+        public async Task<IActionResult> Edit(Guid id, ClienteCreateEditViewModel clienteCreateEditViewModel)
         {
-            if (id != clienteViewModel.Id) return NotFound();
+            if (id != clienteCreateEditViewModel.Id) return NotFound();
 
-            if (!ModelState.IsValid) return View(clienteViewModel);
+            if (!ModelState.IsValid) return View(clienteCreateEditViewModel);
 
             var cliente = await _clienteRepository.ObterPorId(id) ?? null;
 
             if (cliente == null) return NotFound();
 
             cliente.AtualizarCliente(
-                clienteViewModel.NomeFantasia,
-                clienteViewModel.RazaoSocial,
-                clienteViewModel.Cnpj);
+                clienteCreateEditViewModel.NomeFantasia,
+                clienteCreateEditViewModel.RazaoSocial,
+                clienteCreateEditViewModel.Cnpj);
 
             cliente.Endereco?.AtualizarEndereco(
-                clienteViewModel.Endereco.Logradouro,
-                clienteViewModel.Endereco.Numero,
-                clienteViewModel.Endereco.Bairro,
-                clienteViewModel.Endereco.Cidade,
-                clienteViewModel.Endereco.Estado,
-                clienteViewModel.Endereco.Pais,
-                clienteViewModel.Endereco.Cep);
+                clienteCreateEditViewModel.Endereco.Logradouro,
+                clienteCreateEditViewModel.Endereco.Numero,
+                clienteCreateEditViewModel.Endereco.Bairro,
+                clienteCreateEditViewModel.Endereco.Cidade,
+                clienteCreateEditViewModel.Endereco.Estado,
+                clienteCreateEditViewModel.Endereco.Pais,
+                clienteCreateEditViewModel.Endereco.Cep);
 
             cliente.AtualizarContato(
                 cliente.Contatos.FirstOrDefault(),
-                clienteViewModel.Contato.DescricaoContato,
-                clienteViewModel.Contato.NomeRepresentante,
-                clienteViewModel.Contato.EmailRepresentante,
-                clienteViewModel.Contato.TelefoneRepresentante,
-                clienteViewModel.Contato.EmailComercial,
-                clienteViewModel.Contato.TelefoneComercial,
-                clienteViewModel.Contato.Cargo);
+                clienteCreateEditViewModel.Contato.DescricaoContato,
+                clienteCreateEditViewModel.Contato.NomeRepresentante,
+                clienteCreateEditViewModel.Contato.EmailRepresentante,
+                clienteCreateEditViewModel.Contato.TelefoneRepresentante,
+                clienteCreateEditViewModel.Contato.EmailComercial,
+                clienteCreateEditViewModel.Contato.TelefoneComercial,
+                clienteCreateEditViewModel.Contato.Cargo);
 
             try
             {
@@ -182,7 +166,7 @@ namespace CadastroClientes.App.Controllers
 
             if (cliente == null) return NotFound();
 
-            return View(new ClienteViewModel(cliente));
+            return View(new ClienteDetailsViewModel(cliente));
         }
 
         [HttpPost, ActionName("Delete")]
