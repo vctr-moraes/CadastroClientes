@@ -8,12 +8,17 @@ namespace CadastroClientes.App.Controllers
     public class ClientesController : Controller
     {
         private readonly IClienteRepository _clienteRepository;
+        private readonly IContatoRepository _contatoRepository;
         private readonly IDocumentoRepository _documentoRepository;
 
-        public ClientesController(IClienteRepository clienteRepository, IDocumentoRepository documentoRepository)
+        public ClientesController(
+            IClienteRepository clienteRepository,
+            IDocumentoRepository documentoRepository,
+            IContatoRepository contatoRepository)
         {
             _clienteRepository = clienteRepository;
             _documentoRepository = documentoRepository;
+            _contatoRepository = contatoRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -237,6 +242,45 @@ namespace CadastroClientes.App.Controllers
                 _documentoRepository.Remover(id);
 
                 TempData["Sucesso"] = "Documento deletado com sucesso.";
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex?.InnerException?.Message);
+                throw new Exception(ex?.InnerException?.Message);
+            }
+
+            return RedirectToAction(nameof(Details), new { id = clienteId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdicionarContato(ContatoViewModel contatoViewModel, Guid clienteId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Details), new { id = clienteId });
+            }
+
+            var cliente = await _clienteRepository.ObterPorId(clienteId) ?? null;
+
+            if (cliente == null) return NotFound();
+
+            var contato = new Contato(
+                contatoViewModel.DescricaoContato,
+                contatoViewModel.NomeRepresentante,
+                contatoViewModel.EmailRepresentante,
+                contatoViewModel.TelefoneRepresentante,
+                contatoViewModel.EmailComercial,
+                contatoViewModel.TelefoneComercial,
+                contatoViewModel.Cargo,
+                cliente);
+
+            cliente.AdicionarContato(contato);
+
+            try
+            {
+                _contatoRepository.Adicionar(contato);
+
+                TempData["Sucesso"] = "Contato adicionado com sucesso.";
             }
             catch (Exception ex)
             {

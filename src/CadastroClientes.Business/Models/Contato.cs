@@ -27,7 +27,6 @@ public class Contato : Entity
         TelefoneComercial = telefoneComercial;
         EmailComercial = emailComercial;
         Cargo = cargo;
-        Cliente = cliente;
         ClienteId = cliente.Id;
     }
 
