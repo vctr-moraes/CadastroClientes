@@ -27,7 +27,7 @@ public class DocumentoViewModel
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
     [StringLength(500, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres.")]
     [Display(Name = "Descrição")]
-    [DataType(DataType.Text)]
+    [DataType(DataType.MultilineText)]
     public string Descricao { get; set; }
 
     [Display(Name = "Nome do Arquivo")] public string? NomeArquivo { get; set; }
@@ -45,7 +45,9 @@ public class DocumentoViewModel
     [DataType(DataType.Upload)]
     public IFormFile Arquivo { get; set; }
 
-    [Display(Name = "Tipo de Documento")] public TipoDocumentoViewModel TipoDocumento { get; set; }
+    [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+    [Display(Name = "Tipo de Documento")]
+    public TipoDocumentoViewModel TipoDocumento { get; set; }
 
     [ForeignKey("Cliente")] public Guid ClienteId { get; set; }
 }
