@@ -108,7 +108,7 @@
         {
             @foreach (var item in Model.Contatos)
             {
-                <div class="card shadow-sm" style="width: 34rem;">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">
                             @Html.DisplayFor(model => item.NomeRepresentante)
@@ -151,6 +151,7 @@
                         </dl>
                     </div>
                 </div>
+                <br/>
             }
         }
         else
