@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using CadastroClientes.Business.Interfaces;
+using CadastroClientes.Business.Services;
 using CadastroClientes.Data.Context;
 using CadastroClientes.Data.Repository;
 
@@ -16,6 +17,10 @@ public static class DependencyInjectionConfig
         services.AddScoped<IContatoRepository, ContatoRepository>();
         services.AddScoped<IDocumentoRepository, DocumentoRepository>();
         services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+        
+        services.AddScoped<IClienteService, ClienteService>();
+        services.AddScoped<IContatoService, ContatoService>();
+        services.AddScoped<IDocumentoService, DocumentoService>();
 
         return services;
     }

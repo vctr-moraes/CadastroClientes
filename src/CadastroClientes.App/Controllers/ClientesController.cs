@@ -7,15 +7,24 @@ namespace CadastroClientes.App.Controllers
 {
     public class ClientesController : Controller
     {
+        private readonly IClienteService _clienteService;
+        private readonly IDocumentoService _documentoService;
+        private readonly IContatoService _contatoService;
         private readonly IClienteRepository _clienteRepository;
         private readonly IContatoRepository _contatoRepository;
         private readonly IDocumentoRepository _documentoRepository;
 
         public ClientesController(
+            IClienteService clienteService,
+            IDocumentoService documentoService,
+            IContatoService contatoService,
             IClienteRepository clienteRepository,
             IDocumentoRepository documentoRepository,
             IContatoRepository contatoRepository)
         {
+            _clienteService = clienteService;
+            _documentoService = documentoService;
+            _contatoService = contatoService;
             _clienteRepository = clienteRepository;
             _documentoRepository = documentoRepository;
             _contatoRepository = contatoRepository;
@@ -92,7 +101,7 @@ namespace CadastroClientes.App.Controllers
 
             try
             {
-                _clienteRepository.Adicionar(cliente);
+                _clienteService.Adicionar(cliente);
 
                 TempData["Sucesso"] = "Cliente cadastrado com sucesso.";
 
@@ -152,7 +161,7 @@ namespace CadastroClientes.App.Controllers
 
             try
             {
-                _clienteRepository.Atualizar(cliente);
+                _clienteService.Atualizar(cliente);
 
                 TempData["Sucesso"] = "Cliente atualizado com sucesso.";
 
@@ -184,7 +193,7 @@ namespace CadastroClientes.App.Controllers
 
             try
             {
-                _clienteRepository.Remover(id);
+                _clienteService.Remover(id);
 
                 TempData["Sucesso"] = "Cliente deletado com sucesso.";
 
@@ -217,7 +226,7 @@ namespace CadastroClientes.App.Controllers
 
             try
             {
-                _documentoRepository.Adicionar(documento);
+                _documentoService.Adicionar(documento);
 
                 TempData["Sucesso"] = "Documento importado com sucesso.";
             }
@@ -239,7 +248,7 @@ namespace CadastroClientes.App.Controllers
 
             try
             {
-                _documentoRepository.Remover(id);
+                _documentoService.Remover(id);
 
                 TempData["Sucesso"] = "Documento deletado com sucesso.";
             }
@@ -278,7 +287,7 @@ namespace CadastroClientes.App.Controllers
 
             try
             {
-                _contatoRepository.Adicionar(contato);
+                _contatoService.Adicionar(contato);
 
                 TempData["Sucesso"] = "Contato adicionado com sucesso.";
             }
