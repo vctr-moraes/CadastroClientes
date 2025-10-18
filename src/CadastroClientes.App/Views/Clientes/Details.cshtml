@@ -1,11 +1,31 @@
-﻿@model CadastroClientes.App.Models.ClienteViewModel
+﻿@model CadastroClientes.App.Models.ClienteDetailsViewModel
 @using CadastroClientes.App.Models
 @{ var documento = new DocumentoViewModel(); }
+@{ var contato = new ContatoViewModel(); }
 @{
     ViewData["Title"] = "Detalhes";
 }
 
 <h1>Detalhes</h1>
+
+@if (ViewData.ModelState.ErrorCount > 0)
+{
+    <div style="padding-top: 15px;"></div>
+
+    <div class="alert alert-danger alert-dismissible" role="alert" style="padding-bottom: 0px">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+}
+
+@if (TempData["Sucesso"] != null)
+{
+    <div id="msg_box" class="alert alert-success alert-dismissible" role="alert">
+        <i class="fa-regular fa-circle-check"></i>
+        <strong id="msgRetorno">@Html.Raw(TempData["Sucesso"].ToString())</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 <div class="row">
     <div class="col-6">
@@ -84,7 +104,16 @@
             </dd>
         </dl>
         <hr/>
-        <h5>Contatos</h5>
+        <div class="row">
+            <h5 class="col">Contatos</h5>
+            <div class="col text-end">
+                <button type="submit" class="btn btn-primary" data-bs-target="#exampleModalToggle"
+                        data-bs-toggle="modal">
+                    <i class="fa-regular fa-circle-user"></i> Adicionar contato
+                </button>
+            </div>
+        </div>
+        <br/>
         @{
             if (Model.Contatos.Any())
             {
@@ -133,6 +162,7 @@
                             </dl>
                         </div>
                     </div>
+                    <br/>
                 }
             }
             else
@@ -144,11 +174,12 @@
     <div class="col-6">
         <hr/>
         <h5>Documentos</h5>
-        <form asp-action="AdicionarDocumento">
+        <form asp-action="AdicionarDocumento" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@documento.Descricao" class="control-label"></label>
                 <textarea name="descricao" asp-for="@documento.Descricao" class="form-control"></textarea>
-                <span asp-validation-for="@documento.Descricao" class="text-danger"></span>
+                <span asp-validation-for="@documento.Descricao" name="descricao" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@documento.TipoDocumento" class="control-label"></label>
@@ -158,12 +189,18 @@
                         style="cursor: pointer;">
                     <option value="" selected disabled>Selecionar</option>
                 </select>
-                <span asp-validation-for="@documento.TipoDocumento" class="text-danger"></span>
+                <span asp-validation-for="@documento.TipoDocumento" name="tipoDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@documento.Arquivo" for="formFile" class="control-label"></label>
+                <input asp-for="@documento.Arquivo" name="Arquivo" type="file" class="form-control" id="formFile">
+                <span asp-validation-for="@documento.Arquivo" name="Arquivo" class="text-danger"></span>
             </div>
             <input type="hidden" name="clienteId" asp-for="@Model.Id"/>
             <br/>
             <div class="form-group">
-                <input type="submit" value="Importar documento" class="btn btn-primary"/>
+                <button type="submit" class="btn btn-primary"><i class="fa-regular fa-circle-up"></i> Importar documento
+                </button>
             </div>
         </form>
         <br/>
@@ -201,7 +238,7 @@
                                         <input type="hidden" name="id" asp-for="@item.Id"/>
                                         <input type="hidden" name="clienteId" asp-for="Documento.ClienteId"/>
                                         <button type="submit" class="btn btn-danger">
-                                            <i class="fa-solid fa-trash"></i>
+                                            <i class="fa-regular fa-trash-can"></i>
                                         </button>
                                     </form>
                                 </div>
@@ -220,6 +257,85 @@
 </div>
 <br/>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Editar</a>
-    <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+    <a class="btn btn-secondary" asp-action="Index"><i class="fa-solid fa-reply"></i> Voltar</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id"><i class="fa-regular fa-pen-to-square"></i>
+        Editar</a>
 </div>
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Adicionar contato</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="AdicionarContato">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="@contato.DescricaoContato" class="control-label"></label>
+                        <textarea asp-for="@contato.DescricaoContato" name="DescricaoContato"
+                                  class="form-control"></textarea>
+                        <span asp-validation-for="@contato.DescricaoContato" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@contato.NomeRepresentante" class="control-label"></label>
+                        <input asp-for="@contato.NomeRepresentante" name="NomeRepresentante" class="form-control"/>
+                        <span asp-validation-for="@contato.NomeRepresentante" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@contato.Cargo" class="control-label"></label>
+                        <input asp-for="@contato.Cargo" name="Cargo" class="form-control"/>
+                        <span asp-validation-for="@contato.Cargo" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label asp-for="@contato.EmailRepresentante" class="control-label"></label>
+                            <input asp-for="@contato.EmailRepresentante" name="EmailRepresentante" type="email"
+                                   class="form-control"/>
+                            <span asp-validation-for="@contato.EmailRepresentante" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label asp-for="@contato.TelefoneRepresentante" class="control-label"></label>
+                            <input asp-for="@contato.TelefoneRepresentante" name="TelefoneRepresentante" type="tel"
+                                   class="form-control"/>
+                            <span asp-validation-for="@contato.TelefoneRepresentante" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label asp-for="@contato.EmailComercial" class="control-label"></label>
+                            <input asp-for="@contato.EmailComercial" name="EmailComercial" type="email"
+                                   class="form-control"/>
+                            <span asp-validation-for="@contato.EmailComercial" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label asp-for="@contato.TelefoneComercial" class="control-label"></label>
+                            <input asp-for="@contato.TelefoneComercial" name="TelefoneComercial" type="tel"
+                                   class="form-control"/>
+                            <span asp-validation-for="@contato.TelefoneComercial" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="clienteId" asp-for="@Model.Id"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" data-bs-target="#exampleModalToggle2"
+                            data-bs-toggle="modal">Adicionar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script>
+        $(".alert-success").fadeTo(8000, 500).slideUp(500, function () {
+            $(".alert-success").alert('close');
+        });
+    </script>
+}
