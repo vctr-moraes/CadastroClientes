@@ -159,6 +159,15 @@
                                 <dd class="col-sm-6">
                                     @Html.DisplayFor(model => item.TelefoneComercial)
                                 </dd>
+                                <div class="text-end">
+                                    <form asp-action="DeletarContato">
+                                        <input type="hidden" name="id" asp-for="@item.Id"/>
+                                        <input type="hidden" name="clienteId" asp-for="@item.ClienteId"/>
+                                        <button type="submit" class="btn btn-danger" title="Deletar Contato">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </dl>
                         </div>
                     </div>
@@ -236,8 +245,8 @@
                                 <div class="text-end">
                                     <form asp-action="DeletarDocumento">
                                         <input type="hidden" name="id" asp-for="@item.Id"/>
-                                        <input type="hidden" name="clienteId" asp-for="Documento.ClienteId"/>
-                                        <button type="submit" class="btn btn-danger">
+                                        <input type="hidden" name="clienteId" asp-for="@item.ClienteId"/>
+                                        <button type="submit" class="btn btn-danger" title="Deletar Documento">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </button>
                                     </form>

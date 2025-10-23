@@ -20,6 +20,7 @@ public class DocumentoViewModel
         NomeArquivo = documento.NomeArquivo;
         DataHoraCriacao = documento.DataHoraCriacao;
         TipoDocumento = (TipoDocumentoViewModel)documento.TipoDocumento;
+        ClienteId = documento.ClienteId;
     }
 
     [Key] public Guid Id { get; set; }
