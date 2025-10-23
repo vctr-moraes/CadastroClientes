@@ -22,6 +22,7 @@ public class ContatoViewModel
         TelefoneRepresentante = contato.TelefoneRepresentante;
         EmailComercial = contato.EmailComercial;
         TelefoneComercial = contato.TelefoneComercial;
+        ClienteId = contato.ClienteId;
     }
 
     [Key] public Guid Id { get; set; }

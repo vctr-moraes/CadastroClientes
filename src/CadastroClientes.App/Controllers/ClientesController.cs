@@ -7,12 +7,12 @@ namespace CadastroClientes.App.Controllers
 {
     public class ClientesController : Controller
     {
-        private readonly IClienteService _clienteService;
-        private readonly IDocumentoService _documentoService;
-        private readonly IContatoService _contatoService;
         private readonly IClienteRepository _clienteRepository;
+        private readonly IClienteService _clienteService;
         private readonly IContatoRepository _contatoRepository;
+        private readonly IContatoService _contatoService;
         private readonly IDocumentoRepository _documentoRepository;
+        private readonly IDocumentoService _documentoService;
 
         public ClientesController(
             IClienteService clienteService,
@@ -294,6 +294,28 @@ namespace CadastroClientes.App.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex?.InnerException?.Message);
+                throw new Exception(ex?.InnerException?.Message);
+            }
+
+            return RedirectToAction(nameof(Details), new { id = clienteId });
+        }
+
+        [HttpPost, ActionName("DeletarContato")]
+        public async Task<IActionResult> DeletarContato(Guid id, Guid clienteId)
+        {
+            var contato = await _contatoRepository.ObterPorId(id) ?? null;
+
+            if (contato == null) return NotFound();
+
+            try
+            {
+                _contatoService.Remover(id);
+
+                TempData["Sucesso"] = "Contato deletado com sucesso.";
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(String.Empty, ex?.InnerException?.Message);
                 throw new Exception(ex?.InnerException?.Message);
             }
 
