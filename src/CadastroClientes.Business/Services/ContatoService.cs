@@ -19,6 +19,6 @@ public class ContatoService : IContatoService
 
     public void Remover(Guid id)
     {
-        throw new NotImplementedException();
+        _contatoRepository.Remover(id);
     }
 }
