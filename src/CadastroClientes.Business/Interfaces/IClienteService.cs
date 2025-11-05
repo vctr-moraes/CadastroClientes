@@ -6,5 +6,5 @@ public interface IClienteService
 {
     void Adicionar(Cliente cliente);
     void Atualizar(Cliente cliente);
-    void Remover(Guid id);
+    Task Remover(Guid id);
 }

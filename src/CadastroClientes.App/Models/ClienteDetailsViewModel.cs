@@ -18,8 +18,8 @@ public class ClienteDetailsViewModel
         RazaoSocial = cliente.RazaoSocial;
         Cnpj = cliente.Cnpj;
         DataCadastro = cliente.DataCadastro;
-        Contato = new ContatoViewModel();
-        Documento = new DocumentoViewModel();
+        Contatos = cliente.Contatos.Select(contato => new ContatoViewModel(contato)).ToList();
+        Documentos = cliente.Documentos.Select(doc => new DocumentoViewModel(doc)).ToList();
         Endereco = new EnderecoViewModel(cliente.Endereco);
     }
 

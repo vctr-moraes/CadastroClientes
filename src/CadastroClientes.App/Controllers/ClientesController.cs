@@ -206,7 +206,7 @@ namespace CadastroClientes.App.Controllers
 
             try
             {
-                _clienteService.Remover(id);
+                await _clienteService.Remover(id);
 
                 TempData["Sucesso"] = "Cliente deletado com sucesso.";
 
@@ -214,8 +214,8 @@ namespace CadastroClientes.App.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex?.InnerException?.Message);
-                throw new Exception(ex?.InnerException?.Message);
+                ModelState.AddModelError(string.Empty, ex?.Message);
+                return View(new ClienteDetailsViewModel(cliente));
             }
         }
 
