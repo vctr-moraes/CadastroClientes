@@ -86,17 +86,6 @@ namespace CadastroClientes.App.Controllers
                 clienteCreateEditViewModel.Endereco.Cep,
                 cliente);
 
-            var contato = new Contato(
-                clienteCreateEditViewModel.Contato.DescricaoContato,
-                clienteCreateEditViewModel.Contato.NomeRepresentante,
-                clienteCreateEditViewModel.Contato.EmailRepresentante,
-                clienteCreateEditViewModel.Contato.TelefoneRepresentante,
-                clienteCreateEditViewModel.Contato.EmailComercial,
-                clienteCreateEditViewModel.Contato.TelefoneComercial,
-                clienteCreateEditViewModel.Contato.Cargo,
-                cliente);
-
-            cliente.AdicionarContato(contato);
             cliente.AdicionarEndereco(endereco);
 
             try
@@ -148,16 +137,6 @@ namespace CadastroClientes.App.Controllers
                 clienteCreateEditViewModel.Endereco.Estado,
                 clienteCreateEditViewModel.Endereco.Pais,
                 clienteCreateEditViewModel.Endereco.Cep);
-
-            cliente.AtualizarContato(
-                cliente.Contatos.FirstOrDefault(),
-                clienteCreateEditViewModel.Contato.DescricaoContato,
-                clienteCreateEditViewModel.Contato.NomeRepresentante,
-                clienteCreateEditViewModel.Contato.EmailRepresentante,
-                clienteCreateEditViewModel.Contato.TelefoneRepresentante,
-                clienteCreateEditViewModel.Contato.EmailComercial,
-                clienteCreateEditViewModel.Contato.TelefoneComercial,
-                clienteCreateEditViewModel.Contato.Cargo);
 
             try
             {
