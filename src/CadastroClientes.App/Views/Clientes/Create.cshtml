@@ -86,49 +86,6 @@
                 <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-md-8">
-            <h5>Contatos</h5>
-            <hr/>
-            <div class="form-group">
-                <label asp-for="@Model.Contato.DescricaoContato" class="control-label"></label>
-                <textarea asp-for="@Model.Contato.DescricaoContato" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Contato.DescricaoContato" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Contato.NomeRepresentante" class="control-label"></label>
-                <input asp-for="@Model.Contato.NomeRepresentante" class="form-control"/>
-                <span asp-validation-for="@Model.Contato.NomeRepresentante" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Contato.Cargo" class="control-label"></label>
-                <input asp-for="@Model.Contato.Cargo" class="form-control"/>
-                <span asp-validation-for="@Model.Contato.Cargo" class="text-danger"></span>
-            </div>
-            <div class="row">
-                <div class="form-group col-6">
-                    <label asp-for="@Model.Contato.EmailRepresentante" class="control-label"></label>
-                    <input asp-for="@Model.Contato.EmailRepresentante" type="email" class="form-control"/>
-                    <span asp-validation-for="@Model.Contato.EmailRepresentante" class="text-danger"></span>
-                </div>
-                <div class="form-group col-6">
-                    <label asp-for="@Model.Contato.TelefoneRepresentante" class="control-label"></label>
-                    <input asp-for="@Model.Contato.TelefoneRepresentante" type="tel" class="form-control"/>
-                    <span asp-validation-for="@Model.Contato.TelefoneRepresentante" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-6">
-                    <label asp-for="@Model.Contato.EmailComercial" class="control-label"></label>
-                    <input asp-for="@Model.Contato.EmailComercial" type="email" class="form-control"/>
-                    <span asp-validation-for="@Model.Contato.EmailComercial" class="text-danger"></span>
-                </div>
-                <div class="form-group col-6">
-                    <label asp-for="@Model.Contato.TelefoneComercial" class="control-label"></label>
-                    <input asp-for="@Model.Contato.TelefoneComercial" type="tel" class="form-control"/>
-                    <span asp-validation-for="@Model.Contato.TelefoneComercial" class="text-danger"></span>
-                </div>
-            </div>
-        </div>
     </div>
     <br/>
     <div class="form-group">
