@@ -86,17 +86,6 @@ namespace CadastroClientes.App.Controllers
                 clienteCreateEditViewModel.Endereco.Cep,
                 cliente);
 
-            var contato = new Contato(
-                clienteCreateEditViewModel.Contato.DescricaoContato,
-                clienteCreateEditViewModel.Contato.NomeRepresentante,
-                clienteCreateEditViewModel.Contato.EmailRepresentante,
-                clienteCreateEditViewModel.Contato.TelefoneRepresentante,
-                clienteCreateEditViewModel.Contato.EmailComercial,
-                clienteCreateEditViewModel.Contato.TelefoneComercial,
-                clienteCreateEditViewModel.Contato.Cargo,
-                cliente);
-
-            cliente.AdicionarContato(contato);
             cliente.AdicionarEndereco(endereco);
 
             try
@@ -149,16 +138,6 @@ namespace CadastroClientes.App.Controllers
                 clienteCreateEditViewModel.Endereco.Pais,
                 clienteCreateEditViewModel.Endereco.Cep);
 
-            cliente.AtualizarContato(
-                cliente.Contatos.FirstOrDefault(),
-                clienteCreateEditViewModel.Contato.DescricaoContato,
-                clienteCreateEditViewModel.Contato.NomeRepresentante,
-                clienteCreateEditViewModel.Contato.EmailRepresentante,
-                clienteCreateEditViewModel.Contato.TelefoneRepresentante,
-                clienteCreateEditViewModel.Contato.EmailComercial,
-                clienteCreateEditViewModel.Contato.TelefoneComercial,
-                clienteCreateEditViewModel.Contato.Cargo);
-
             try
             {
                 _clienteService.Atualizar(cliente);
@@ -206,7 +185,7 @@ namespace CadastroClientes.App.Controllers
 
             try
             {
-                _clienteService.Remover(id);
+                await _clienteService.Remover(id);
 
                 TempData["Sucesso"] = "Cliente deletado com sucesso.";
 
@@ -214,8 +193,8 @@ namespace CadastroClientes.App.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex?.InnerException?.Message);
-                throw new Exception(ex?.InnerException?.Message);
+                ModelState.AddModelError(string.Empty, ex?.Message);
+                return View(new ClienteDetailsViewModel(cliente));
             }
         }
 

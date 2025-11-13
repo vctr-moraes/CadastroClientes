@@ -11,7 +11,7 @@ public class ClienteService : IClienteService
     {
         _clienteRepository = clienteRepository;
     }
-    
+
     public void Adicionar(Cliente cliente)
     {
         _clienteRepository.Adicionar(cliente);
@@ -22,8 +22,15 @@ public class ClienteService : IClienteService
         _clienteRepository.Atualizar(cliente);
     }
 
-    public void Remover(Guid id)
+    public async Task Remover(Guid id)
     {
+        var cliente = await _clienteRepository.ObterPorId(id);
+
+        if (cliente.Documentos.Any())
+        {
+            throw new InvalidOperationException("O cliente possui documentos associados e não pode ser removido.");
+        }
+
         _clienteRepository.Remover(id);
     }
 }

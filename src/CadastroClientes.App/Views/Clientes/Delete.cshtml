@@ -106,57 +106,43 @@
     @{
         if (Model.Contatos.Any())
         {
-            @foreach (var item in Model.Contatos)
-            {
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            @Html.DisplayFor(model => item.NomeRepresentante)
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary text-black-50">
+            <ul class="list-group">
+                @foreach (var item in Model.Contatos)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">@Html.DisplayFor(model => item.NomeRepresentante)</div>
                             @Html.DisplayFor(model => item.Cargo)
-                        </h6>
-                        <hr/>
-                        <dl class="row">
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.DescricaoContato)
-                            </dt>
-                            <dd class="col-sm-6">
-                                @Html.DisplayFor(model => item.DescricaoContato)
-                            </dd>
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.EmailRepresentante)
-                            </dt>
-                            <dd class="col-sm-6">
-                                @Html.DisplayFor(model => item.EmailRepresentante)
-                            </dd>
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.TelefoneRepresentante)
-                            </dt>
-                            <dd class="col-sm-6">
-                                @Html.DisplayFor(model => item.TelefoneRepresentante)
-                            </dd>
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.EmailComercial)
-                            </dt>
-                            <dd class="col-sm-6">
-                                @Html.DisplayFor(model => item.EmailComercial)
-                            </dd>
-                            <dt class="col-sm-6">
-                                @Html.DisplayNameFor(model => item.TelefoneComercial)
-                            </dt>
-                            <dd class="col-sm-6">
-                                @Html.DisplayFor(model => item.TelefoneComercial)
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-                <br/>
-            }
+                        </div>
+                    </li>
+                }
+            </ul>
         }
         else
         {
             <h6 class="text-black-50">Não há contatos cadastrados</h6>
+        }
+    }
+    <hr/>
+    <h5>Documentos</h5>
+    @{
+        if (Model.Documentos.Any())
+        {
+            <ul class="list-group">
+                @foreach (var item in Model.Documentos)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">@Html.DisplayFor(model => item.NomeArquivo)</div>
+                            @Html.DisplayFor(model => item.TipoDocumento) - @Html.DisplayFor(model => item.Descricao)
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <h6 class="text-black-50">Não há documentos cadastrados</h6>
         }
     }
     <br/>
