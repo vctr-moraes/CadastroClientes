@@ -42,18 +42,8 @@ namespace CadastroClientes.App.Controllers
 
             if (cliente == null) return NotFound();
 
-            var clienteViewModel = new ClienteDetailsViewModel
-            {
-                Id = cliente.Id,
-                NomeFantasia = cliente.NomeFantasia,
-                RazaoSocial = cliente.RazaoSocial,
-                Cnpj = cliente.Cnpj,
-                DataCadastro = cliente.DataCadastro,
-                Contatos = cliente.Contatos.Select(contato => new ContatoViewModel(contato)).ToList(),
-                Documento = new DocumentoViewModel { ClienteId = cliente.Id },
-                Documentos = cliente.Documentos.Select(doc => new DocumentoViewModel(doc)).ToList(),
-                Endereco = new EnderecoViewModel(cliente.Endereco)
-            };
+            var clienteViewModel = new ClienteDetailsViewModel(cliente);
+            clienteViewModel.Documento = new DocumentoViewModel { ClienteId = cliente.Id };
 
             return View(clienteViewModel);
         }
@@ -159,18 +149,7 @@ namespace CadastroClientes.App.Controllers
 
             if (cliente == null) return NotFound();
 
-            var clienteViewModel = new ClienteDetailsViewModel
-            {
-                Id = cliente.Id,
-                NomeFantasia = cliente.NomeFantasia,
-                RazaoSocial = cliente.RazaoSocial,
-                Cnpj = cliente.Cnpj,
-                DataCadastro = cliente.DataCadastro,
-                Contatos = cliente.Contatos.Select(contato => new ContatoViewModel(contato)).ToList(),
-                Documento = new DocumentoViewModel { ClienteId = cliente.Id },
-                Documentos = cliente.Documentos.Select(doc => new DocumentoViewModel(doc)).ToList(),
-                Endereco = new EnderecoViewModel(cliente.Endereco)
-            };
+            var clienteViewModel = new ClienteDetailsViewModel(cliente);
 
             return View(clienteViewModel);
         }
